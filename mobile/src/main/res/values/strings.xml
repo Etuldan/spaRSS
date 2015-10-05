@@ -167,7 +167,7 @@
     <string name="settings_light_theme">Light theme</string>
     <string name="settings_light_theme_description">Use the light theme</string>
     <string name="settings_left_panel">Navigation Drawer</string>
-    <string name="settings_left_panel_description">Display the Navigation Drawer at startup of the application</string>
+    <string name="settings_left_panel_description">Display the Navigation Drawer at startup</string>
     <string name="settings_keep_time">Time that the entries will be kept</string>
     <string name="settings_display_images">Display images</string>
     <string name="settings_display_images_description">Display images in entries</string>
@@ -201,7 +201,7 @@
     <string name="settings_proxy_port">Port</string>
     <string name="settings_proxy_type">Type</string>
     <string name="settings_mark_as_read">Display button "Mark all as read"</string>
-    <string name="settings_mark_as_read_description" tools:ignore="MissingTranslation" >Show / Hide the button (restart required)</string>
+    <string name="settings_mark_as_read_description" tools:ignore="MissingTranslation" >Show the "Mark all as read" button (restart required)</string>
     <plurals name="number_of_new_entries">
         <item quantity="one">One new entry</item>
         <item quantity="other">%d new entries</item>
