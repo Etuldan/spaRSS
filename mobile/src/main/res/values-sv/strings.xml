@@ -38,7 +38,7 @@
     <string name="no_result">Inga resultat</string>
     <string name="drawer_open">Öppna navigationspanelen</string>
     <string name="drawer_close">Stänga navigationspanelen</string>
-    <string name="back_again_to_quit">Press back once more to exit</string>
+    <string name="back_again_to_quit">Tryck Tillbaka igen för att sluta</string>
 
     <!-- FEEDS -->
     <string name="feeds">Feeds</string>
@@ -61,8 +61,12 @@
     <string name="feed_url">URL</string>
     <string name="optional">(valfritt)</string>
     <string name="website_or_feed">(webbplats eller feed)</string>
+    <string name="feed_cookie">Autentiseringskaka</string>
+    <string name="cookiename">Namn</string>
+    <string name="cookievalue">Innehåll</string>
     <string name="tab_feed_title">Feed</string>
     <string name="tab_filters_title">Filter</string>
+    <string name="tab_advanced_title">Avancerad</string>
     <string name="feed_title">TITEL</string>
     <string name="feed_filters">FILTRERINGSREGLER</string>
     <string name="filter_add_title">Lägg till regel</string>
@@ -80,7 +84,7 @@
     <string name="question_delete_filter">Vill du radera denna regel?</string>
     <string name="add_group_title">Ny grupp</string>
     <string name="edit_group_title">Redigera gruppens namn</string>
-    <string name="message_exported_to">Exporterad till %s.</string>
+    <string name="message_exported_to">Exporterad till %s</string>
     <string name="to_group_title">Flytta feed</string>
     <string name="to_group_message">Du kan flytta denna feed varken in till gruppen eller utanför gruppen. Vad vill du göra?</string>
     <string name="to_group_above">Utanför gruppen</string>
@@ -110,6 +114,8 @@
     <string name="menu_full_screen">Helskärm</string>
     <string name="menu_copy_clipboard">Kopiera länk</string>
     <string name="menu_mark_as_unread">Markera som oläst</string>
+    <string name="menu_open_in_browser">Öppna i webbläsare</string>
+    <string name="menu_switch_full_original">Show full content</string>
     <string name="share_favorites_title">spaRSS: favoriter</string>
     <string name="copied_clipboard">Länk kopierad</string>
     <string name="get_full_text">Hämta hela texten</string>
@@ -146,11 +152,15 @@
     <string name="settings_category_content_presentation">Innehållspresentation</string>
     <string name="settings_light_theme">Ljust tema</string>
     <string name="settings_light_theme_description">Använd det ljusa temat</string>
+    <string name="settings_left_panel">Navigeringsmenu</string>
+    <string name="settings_left_panel_description">Visa navigeringsmenun vid start</string>
     <string name="settings_keep_time">Tid som inläggen behållas</string>
     <string name="settings_display_images">Visa bilder</string>
     <string name="settings_display_images_description">Visa bilder i inlägg</string>
     <string name="settings_preload_image_mode">Förladda bilder</string>
     <string name="settings_font_size">Typsnittsstorlek</string>
+    <string name="settings_font_serif">Använd serif-typsnitt</string>
+    <string name="settings_font_serif_description">Visa artiklar i en serif-typsnitt</string>
     <string name="settings_display_oldest_first">Visa äldsta först</string>
     <string name="settings_display_oldest_first_description">Visa äldsta inläggen först</string>
     <string name="settings_display_entries_fullscreen">Automatisk helskärm</string>
@@ -171,7 +181,8 @@
     <string name="settings_proxy_host">Host</string>
     <string name="settings_proxy_port">Port</string>
     <string name="settings_proxy_type">Type</string>
-
+    <string name="settings_mark_as_read">Visa knappen "Mark som läst"</string>
+    <string name="settings_mark_as_read_description" tools:ignore="MissingTranslation" >Visa knappen "Mark som läst" (omstart behövs)</string>
     <plurals name="number_of_new_entries">
         <item quantity="one">Ett nytt inlägg</item>
         <item quantity="other">%d nya inlägg</item>
@@ -198,6 +209,17 @@
         <item>2 månader</item>
         <item>3 månader</item>
         <item>För alltid</item>
+    </string-array>
+    <string-array name="settings_keep_times_per_feed">
+        <item>1 dag</item>
+        <item>2 dagar</item>
+        <item>4 dagar</item>
+        <item>1 vecka</item>
+        <item>2 veckor</item>
+        <item>1 månad</item>
+        <item>2 månader</item>
+        <item>3 månader</item>
+        <item>Förinställt värde</item>
     </string-array>
     <string-array name="settings_font_sizes">
         <item>-2</item>
