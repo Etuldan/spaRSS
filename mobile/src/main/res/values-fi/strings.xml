@@ -63,8 +63,12 @@
     <string name="feed_url">URL-osoite</string>
     <string name="optional">(ei välttämätön)</string>
     <string name="website_or_feed">(verkkosivu tai syöte)</string>
+    <string name="feed_cookie">Todennuseväste</string>
+    <string name="cookiename">Nimi</string>
+    <string name="cookievalue">Sisältö</string>
     <string name="tab_feed_title">Syöte</string>
     <string name="tab_filters_title">Suodatus</string>
+    <string name="tab_advanced_title">Muuta</string>
     <string name="feed_title">OTSIKKO</string>
     <string name="feed_filters">SUODATTIMEN SÄÄNNÖT</string>
     <string name="filter_add_title">Lisää sääntö</string>
@@ -114,6 +118,8 @@
     <string name="menu_full_screen">Koko ruutu</string>
     <string name="menu_copy_clipboard">Kopioi linkki</string>
     <string name="menu_mark_as_unread">Merkitse lukemattomaksi</string>
+    <string name="menu_open_in_browser">Avaa selaimessa</string>
+    <string name="menu_switch_full_original">Näytä koko sisältö</string>
     <string name="share_favorites_title">spaRSS: tähdellä merkityt</string>
     <string name="copied_clipboard">Linkki kopioitu</string>
     <string name="get_full_text">Hae koko teksti</string>
@@ -154,11 +160,15 @@
     <string name="settings_category_content_presentation">Sisällön esittäminen</string>
     <string name="settings_light_theme">Vaalea teema</string>
     <string name="settings_light_theme_description">Käytä vaaleaa teemaa</string>
+    <string name="settings_left_panel">Navigointivalikko</string>
+    <string name="settings_left_panel_description">Näytä navigointivalikko käynnistettäessä</string>
     <string name="settings_keep_time">Artikkelien säilyttämisaika</string>
     <string name="settings_display_images">Näytä kuvat</string>
     <string name="settings_display_images_description">Näytä kuvat artikkeleissa</string>
     <string name="settings_preload_image_mode">Esilataa kuvat</string>
     <string name="settings_font_size">Kirjasintyypin koko</string>
+    <string name="settings_font_serif">Käytä serif-kirjasinta</string>
+    <string name="settings_font_serif_description">Näytä artikkeliteksti päätteellisellä kirjasimella (serif)</string>
     <string name="settings_display_oldest_first">Näytä vanhimmat ensin</string>
     <string name="settings_display_oldest_first_description">Näytä vanhimmat artikkelit ensin</string>
     <string name="settings_display_entries_fullscreen">Automaattinen kokoruututila</string>
@@ -182,6 +192,8 @@
     <string name="settings_proxy_host">Palvelin</string>
     <string name="settings_proxy_port">Portti</string>
     <string name="settings_proxy_type">Tyyppi</string>
+    <string name="settings_mark_as_read">Näytä "Merkitse luetuksi" -nappi</string>
+    <string name="settings_mark_as_read_description" tools:ignore="MissingTranslation" >Näytä "Merkitse luetuksi" -nappi (edellyttää uudelleenkäynnistyksen)</string>
 
     <plurals name="number_of_new_entries">
         <item quantity="one">Yksi uusi artikkeli</item>
@@ -209,6 +221,17 @@
         <item>2 kuukautta</item>
         <item>3 kuukautta</item>
         <item>Ikuisesti</item>
+    </string-array>
+    <string-array name="settings_keep_times_per_feed">
+        <item>1 päivä</item>
+        <item>2 päivää</item>
+        <item>4 päivää</item>
+        <item>1 viikko</item>
+        <item>2 viikkoa</item>
+        <item>1 kuukausi</item>
+        <item>2 kuukautta</item>
+        <item>3 kuukautta</item>
+        <item>Oletus</item>
     </string-array>
     <string-array name="settings_font_sizes">
         <item>-2</item>
