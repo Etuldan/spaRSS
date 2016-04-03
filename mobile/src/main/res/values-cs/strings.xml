@@ -253,5 +253,6 @@
     <string name="settings_show_new_entries">Automaticky zobrazovat nové články</string>
     <string name="settings_show_new_entries_description">Pokud je vypnuto, je pro zobrazení nových článků třeba ťuknout na tlačítko Zobrazit nové články</string>
     <string name="no_new_entries">Žádné nové příspěvky k zobrazení.</string>
+    <string name="storage_request_explanation">To be able to import or export the feeds from or to a file, you must allow the application to access to the storage memory.</string>
 
-    </resources>
+</resources>

@@ -236,4 +236,5 @@
     <string name="settings_mark_as_read_description">显示/隐藏按钮</string>
     <string name="settings_show_new_entries">自动显示新文章</string>
     <string name="settings_show_new_entries_description">如果禁用，需要点击一下显示按钮才能显示新文章</string>
-    </resources>
+    <string name="storage_request_explanation">To be able to import or export the feeds from or to a file, you must allow the application to access to the storage memory.</string>
+</resources>

@@ -244,4 +244,5 @@
     <string name="settings_mark_as_read_description">Zobraziť / skryť tlačidlo</string>
     <string name="settings_show_new_entries">Automaticky zobraziť nové články</string>
     <string name="settings_show_new_entries_description">Ak je vypnuté, tlačidlo „Zobraziť nové články“ bude potrebné pre zobrazenie nových článkov</string>
-    </resources>
+    <string name="storage_request_explanation">To be able to import or export the feeds from or to a file, you must allow the application to access to the storage memory.</string>
+</resources>

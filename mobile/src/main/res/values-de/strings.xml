@@ -247,4 +247,5 @@
 <string name="settings_show_new_entries">Automatisch neue Einträge anzeigen</string>
     <string name="filter_help">Filter Hilfe</string>
     <string name="settings_show_new_entries_description">Wenn deaktiviert, ist das Antippen des Buttons Neue Einträge erforderlich, um neue Einträge zu sehen</string>
-    </resources>
+    <string name="storage_request_explanation">To be able to import or export the feeds from or to a file, you must allow the application to access to the storage memory.</string>
+</resources>

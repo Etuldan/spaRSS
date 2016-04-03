@@ -256,4 +256,5 @@
 <string name="menu_show_new_entries">Mostra nuovi articoli</string>
     <string name="settings_show_new_entries">Mostra automaticamente nuovi articoli</string>
     <string name="settings_show_new_entries_description">Se disabilitato, bisogna premere sul bottone Mostra nuovi articoli per mostrare i nuovi articoli</string>
-    </resources>
+    <string name="storage_request_explanation">To be able to import or export the feeds from or to a file, you must allow the application to access to the storage memory.</string>
+</resources>

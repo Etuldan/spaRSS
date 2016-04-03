@@ -20,6 +20,7 @@
 
 package net.etuldan.sparss.activity;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
@@ -27,6 +28,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -34,6 +36,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -51,6 +54,7 @@ import net.etuldan.sparss.Constants;
 import net.etuldan.sparss.R;
 import net.etuldan.sparss.adapter.DrawerAdapter;
 import net.etuldan.sparss.fragment.EntriesListFragment;
+import net.etuldan.sparss.parser.OPML;
 import net.etuldan.sparss.provider.FeedData;
 import net.etuldan.sparss.provider.FeedData.EntryColumns;
 import net.etuldan.sparss.provider.FeedData.FeedColumns;
@@ -58,6 +62,8 @@ import net.etuldan.sparss.service.FetcherService;
 import net.etuldan.sparss.service.RefreshService;
 import net.etuldan.sparss.utils.PrefUtils;
 import net.etuldan.sparss.utils.UiUtils;
+
+import java.io.File;
 
 public class HomeActivity extends BaseActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -74,6 +80,7 @@ public class HomeActivity extends BaseActivity implements LoaderManager.LoaderCa
 
     private static final int LOADER_ID = 0;
     private static final int SEARCH_DRAWER_POSITION = -1;
+    private static final int PERMISSIONS_REQUEST_IMPORT_FROM_OPML = 1;
 
     private EntriesListFragment mEntriesFragment;
     private DrawerLayout mDrawerLayout;
@@ -179,6 +186,22 @@ public class HomeActivity extends BaseActivity implements LoaderManager.LoaderCa
         if (PrefUtils.getBoolean(PrefUtils.REFRESH_ON_OPEN_ENABLED, false)) {
             if (!PrefUtils.getBoolean(PrefUtils.IS_REFRESHING, false)) {
                 startService(new Intent(HomeActivity.this, FetcherService.class).setAction(FetcherService.ACTION_REFRESH_FEEDS));
+            }
+        }
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED && new File(OPML.BACKUP_OPML).exists())
+        {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
+                builder.setMessage(R.string.storage_request_explanation).setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int id) {
+                        ActivityCompat.requestPermissions(HomeActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST_IMPORT_FROM_OPML);
+                    }
+                });
+                builder.show();
+            }
+            else
+            {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST_IMPORT_FROM_OPML);
             }
         }
     }
@@ -421,5 +444,30 @@ public class HomeActivity extends BaseActivity implements LoaderManager.LoaderCa
             getSupportActionBar().setTitle(getSupportActionBar().getTitle().toString() + " (" + String.valueOf(mNewEntriesNumber) + ")" );
         }
         invalidateOptionsMenu();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults)
+    {
+        switch (requestCode)
+        {
+            case PERMISSIONS_REQUEST_IMPORT_FROM_OPML:
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try
+                            {
+                                // Perform automated import of the backup
+                                OPML.importFromFile(OPML.BACKUP_OPML);
+                            }
+                            catch (Exception ig){
+                            }
+                        }
+                    }).start();
+                }
+                return;
+        }
     }
 }
