@@ -169,5 +169,6 @@
 	<item quantity="many">d% مقالات جديدة</item>
 	<item quantity="other">d% مقالة جديدة</item>
 </plurals>
+    <string name="storage_request_explanation">To be able to import or export the feeds from or to a file, you must allow the application to access to the storage memory.</string>
 
-    </resources>
+</resources>

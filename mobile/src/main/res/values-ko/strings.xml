@@ -236,4 +236,5 @@
     <string name="settings_mark_as_read_description">버튼을 표시하거나 숨깁니다</string>
     <string name="settings_show_new_entries">새 항목 자동으로 표시</string>
     <string name="settings_show_new_entries_description">만약 해제되었을 경우 \'새 항목 표시\' 버튼을 눌러야만 새로운 항목이 표시됩니다</string>
-    </resources>
+    <string name="storage_request_explanation">To be able to import or export the feeds from or to a file, you must allow the application to access to the storage memory.</string>
+</resources>

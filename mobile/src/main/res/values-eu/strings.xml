@@ -252,4 +252,5 @@
     <string name="settings_mark_as_read_description">Erakutsi / Ezkutatu botoia</string>
     <string name="settings_show_new_entries">Automatikoki sarrera berriak erakutsi</string>
     <string name="settings_show_new_entries_description">Ezgaituta badago, Sarrera berriak erakutsi botoia sakatu beharko da sarrera berriak ikusteko</string>
-    </resources>
+    <string name="storage_request_explanation">To be able to import or export the feeds from or to a file, you must allow the application to access to the storage memory.</string>
+</resources>

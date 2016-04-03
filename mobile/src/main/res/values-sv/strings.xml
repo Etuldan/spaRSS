@@ -236,5 +236,6 @@
         <item>Endast via Wi-Fi</item>
         <item>Alltid</item>
     </string-array>
+    <string name="storage_request_explanation">To be able to import or export the feeds from or to a file, you must allow the application to access to the storage memory.</string>
 
 </resources>
