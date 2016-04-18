@@ -32,6 +32,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
 public class StringUtils {
@@ -46,6 +47,9 @@ public class StringUtils {
             DATE_SHORT_FORMAT = new SimpleDateFormat(android.text.format.DateFormat.getBestDateTimePattern(MainApplication.getContext().getResources().getConfiguration().locale, "d MMM"));
         } else {
             DATE_SHORT_FORMAT = android.text.format.DateFormat.getDateFormat(MainApplication.getContext());
+            if(Locale.getDefault().equals(Locale.GERMANY)) { //workaround for Android issue with German language
+                DATE_SHORT_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
+            }
         }
     }
 
