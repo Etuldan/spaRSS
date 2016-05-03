@@ -47,11 +47,11 @@ public class ArticleTextExtractor {
      * @param contentIndicator a text which should be included into the extracted content, or null
      * @return extracted article, all HTML tags stripped
      */
-    public static String extractContent(InputStream input, String contentIndicator) throws Exception {
-        return extractContent(Jsoup.parse(input, null, ""), contentIndicator);
+    public static String extractContent(InputStream input, String contentIndicator, String titleIndicator) throws Exception {
+        return extractContent(Jsoup.parse(input, null, ""), contentIndicator, titleIndicator);
     }
 
-    public static String extractContent(Document doc, String contentIndicator) {
+    public static String extractContent(Document doc, String contentIndicator, String titleIndicator) {
         if (doc == null)
             throw new NullPointerException("missing document");
 
@@ -63,14 +63,29 @@ public class ArticleTextExtractor {
         int maxWeight = 0;
         Element bestMatchElement = null;
 
+        //first largest node which contains content but not title. that is the content we want.
         for (Element entry : nodes) {
-            int currentWeight = getWeight(entry, contentIndicator);
-            if (currentWeight > maxWeight) {
-                maxWeight = currentWeight;
-                bestMatchElement = entry;
+            if(entry.text().contains(contentIndicator)) {
+                if(!entry.text().contains(titleIndicator)) {
+                    if(maxWeight < entry.text().length()) {
+                        maxWeight = entry.text().length();
+                        bestMatchElement = entry;
+                    }
+                }
+            }
+        }
 
-                if (maxWeight > 300) {
-                    break;
+        //if above method does not work, use fallback 
+        if(bestMatchElement == null) {
+            for (Element entry : nodes) {
+                int currentWeight = getWeight(entry, contentIndicator);
+                if (currentWeight > maxWeight) {
+                    maxWeight = currentWeight;
+                    bestMatchElement = entry;
+
+                    if (maxWeight > 300) {
+                        break;
+                    }
                 }
             }
         }

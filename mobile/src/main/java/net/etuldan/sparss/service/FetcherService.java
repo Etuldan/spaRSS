@@ -297,6 +297,7 @@ public class FetcherService extends IntentService {
                 if (entryCursor.isNull(entryCursor.getColumnIndex(EntryColumns.MOBILIZED_HTML))) { // If we didn't already mobilized it
                     int linkPos = entryCursor.getColumnIndex(EntryColumns.LINK);
                     int abstractHtmlPos = entryCursor.getColumnIndex(EntryColumns.ABSTRACT);
+                    int titlePos = entryCursor.getColumnIndex(EntryColumns.TITLE);
                     int feedIdPos = entryCursor.getColumnIndex(EntryColumns.FEED_ID);
                     HttpURLConnection connection = null;
 
@@ -324,10 +325,15 @@ public class FetcherService extends IntentService {
                                 contentIndicator = text.substring(20, 40);
                             }
                         }
+                        String titleIndicator = null;
+                        String title = entryCursor.getString(titlePos);
+                        if (!TextUtils.isEmpty(title)) {
+                            titleIndicator = Html.fromHtml(title).toString();
+                        }
 
                         connection = NetworkUtils.setupConnection(link,cookieName, cookieValue,httpAuthLoginValue, httpAuthPassValue);
 
-                        String mobilizedHtml = ArticleTextExtractor.extractContent(connection.getInputStream(), contentIndicator);
+                        String mobilizedHtml = ArticleTextExtractor.extractContent(connection.getInputStream(), contentIndicator, titleIndicator);
 
                         if (mobilizedHtml != null) {
                             mobilizedHtml = HtmlUtils.improveHtmlContent(mobilizedHtml, NetworkUtils.getBaseUrl(link));
