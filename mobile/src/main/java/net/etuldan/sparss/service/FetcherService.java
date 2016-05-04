@@ -322,8 +322,8 @@ public class FetcherService extends IntentService {
                             text = Html.fromHtml(text).toString();
                             if (text.length() >= 100) {
                                 contentIndicator = text.substring(0, 100);
+                                contentIndicator = contentIndicator.replaceAll("[\\t\\n\\r]+"," ");
                             }
-                            contentIndicator = contentIndicator.replaceAll("[\\t\\n\\r]+"," ");
                         }
                         String titleIndicator = null;
                         String title = entryCursor.getString(titlePos);
