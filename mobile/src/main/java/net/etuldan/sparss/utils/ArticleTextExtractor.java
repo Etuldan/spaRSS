@@ -90,6 +90,26 @@ public class ArticleTextExtractor {
                 bestMatchElement = conventionalMatching(nodes, contentIndicator, false);
             }
         }
+        
+        //check siblings for images and add them if any available
+        Element previousSibling = bestMatchElement.previousElementSibling();
+        while(previousSibling != null) {
+            if (previousSibling.select("img").size() != 0) {
+                bestMatchElement.prependChild(previousSibling);
+                previousSibling = bestMatchElement.previousElementSibling();
+            } else {
+                previousSibling = previousSibling.previousElementSibling();
+            }
+        }
+        Element nextSibling = bestMatchElement.nextElementSibling();
+        while(nextSibling != null) {
+            if (nextSibling.select("img").size() != 0) {
+                bestMatchElement.appendChild(nextSibling);
+                nextSibling = bestMatchElement.nextElementSibling();
+            } else {
+                nextSibling = nextSibling.nextElementSibling();
+            }
+        }
 
         if (bestMatchElement != null) {
             return bestMatchElement.toString();
