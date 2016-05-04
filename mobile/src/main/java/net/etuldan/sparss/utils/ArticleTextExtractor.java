@@ -1,5 +1,7 @@
 package net.etuldan.sparss.utils;
 
+import android.util.Log;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -19,6 +21,7 @@ import java.util.regex.Pattern;
  * @author Peter Karich
  */
 public class ArticleTextExtractor {
+    private static final String TAG = "ArticleTextExtractor";
 
     // Interesting nodes
     private static final Pattern NODES = Pattern.compile("p|div|td|h1|h2|article|section|main"); //"main" is used by Joomla CMS
@@ -75,30 +78,47 @@ public class ArticleTextExtractor {
             }
         }
 
-        //if above method does not work, use fallback 
+        Log.d(TAG, "extractContent: conventionalMatching for " + titleIndicator+ ", withContentFilter==true");
+        bestMatchElement = conventionalMatching(nodes, contentIndicator, true);
         if(bestMatchElement == null) {
-            for (Element entry : nodes) {
-                //only consider entries which contain the contentIndicator
-                if(!entry.text().contains(contentIndicator)) {
-                    continue;
-                }
-                int currentWeight = getWeight(entry, contentIndicator);
-                if (currentWeight > maxWeight) {
-                    maxWeight = currentWeight;
-                    bestMatchElement = entry;
-
-                    if (maxWeight > 300) {
-                        break;
-                    }
-                }
-            }
+            Log.d(TAG, "extractContent: conventionalMatching for " + titleIndicator+ ", withContentFilter==false");
+            bestMatchElement = conventionalMatching(nodes, contentIndicator, false);
         }
 
         if (bestMatchElement != null) {
             return bestMatchElement.toString();
         }
 
-        return null;
+        Log.e(TAG, "extractContent failed. Returning document body.");
+        return doc.select("body").first().toString();
+    }
+
+    /**
+     * Conventional matching algorithm. 
+     * @param nodes All HTML elements to be considered.
+     * @param contentIndicator Only required if withContentFilter==true
+     * @param withContentFilter If true only nodes containing contentIndicator are considered
+     * @return Best matching node or null
+     */
+    private static Element conventionalMatching(Collection<Element> nodes, String contentIndicator, boolean withContentFilter) {
+        int maxWeight = 0;
+        Element bestMatchElement = null;
+        for (Element entry : nodes) {
+            //only consider entries which contain the contentIndicator if withContentFilter 
+            if (withContentFilter && !entry.text().contains(contentIndicator)) {
+                continue;
+            }
+            int currentWeight = getWeight(entry, contentIndicator);
+            if (currentWeight > maxWeight) {
+                maxWeight = currentWeight;
+                bestMatchElement = entry;
+
+                if (maxWeight > 300) {
+                    break;
+                }
+            }
+        }
+        return bestMatchElement;
     }
 
     /**
