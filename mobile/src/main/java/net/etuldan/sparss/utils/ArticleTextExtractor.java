@@ -78,11 +78,13 @@ public class ArticleTextExtractor {
             }
         }
 
-        Log.d(TAG, "extractContent: conventionalMatching for " + titleIndicator+ ", withContentFilter==true");
-        bestMatchElement = conventionalMatching(nodes, contentIndicator, true);
         if(bestMatchElement == null) {
-            Log.d(TAG, "extractContent: conventionalMatching for " + titleIndicator+ ", withContentFilter==false");
-            bestMatchElement = conventionalMatching(nodes, contentIndicator, false);
+            Log.d(TAG, "extractContent: conventionalMatching for " + titleIndicator + ", withContentFilter==true");
+            bestMatchElement = conventionalMatching(nodes, contentIndicator, true);
+            if (bestMatchElement == null) {
+                Log.d(TAG, "extractContent: conventionalMatching for " + titleIndicator + ", withContentFilter==false");
+                bestMatchElement = conventionalMatching(nodes, contentIndicator, false);
+            }
         }
 
         if (bestMatchElement != null) {
