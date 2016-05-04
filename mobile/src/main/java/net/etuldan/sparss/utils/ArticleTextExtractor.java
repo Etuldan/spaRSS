@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 public class ArticleTextExtractor {
 
     // Interesting nodes
-    private static final Pattern NODES = Pattern.compile("p|div|td|h1|h2|article|section");
+    private static final Pattern NODES = Pattern.compile("p|div|td|h1|h2|article|section|main"); //"main" is used by Joomla CMS
 
     // Unlikely candidates
     private static final Pattern UNLIKELY = Pattern.compile("com(bx|ment|munity)|dis(qus|cuss)|e(xtra|[-]?mail)|foot|"
@@ -78,6 +78,10 @@ public class ArticleTextExtractor {
         //if above method does not work, use fallback 
         if(bestMatchElement == null) {
             for (Element entry : nodes) {
+                //only consider entries which contain the contentIndicator
+                if(!entry.text().contains(contentIndicator)) {
+                    continue;
+                }
                 int currentWeight = getWeight(entry, contentIndicator);
                 if (currentWeight > maxWeight) {
                     maxWeight = currentWeight;
@@ -131,15 +135,21 @@ public class ArticleTextExtractor {
         Element caption = null;
         List<Element> pEls = new ArrayList<>(5);
         for (Element child : rootEl.children()) {
+            //if child contains only (!) a single child, get that sub-child instead (recursively!)
+            while(child.children().size() == 1 && child.text().length() == 0) {
+                child = child.child(0);
+            }
             String text = child.text();
             int textLength = text.length();
             if (textLength < 20) {
                 continue;
             }
 
-            if (contentIndicator != null && text.contains(contentIndicator)) {
-                weight += 100; // We certainly found the item
-            }
+            //this is not reliable. there are many tags (tree hierarchy) which contain contentIndicator,
+            //at this point we cannot be certain that this is the tag we actually want.
+            //if (contentIndicator != null && text.contains(contentIndicator)) {
+            //    weight += 100; // We certainly found the item
+            //}
 
             String ownText = child.ownText();
             int ownTextLength = ownText.length();
@@ -186,6 +196,10 @@ public class ArticleTextExtractor {
 
         if (POSITIVE.matcher(e.id()).find())
             weight += 40;
+            
+        //also allow custom HTML attributes, e.g. like Joomla uses: itemprop="articleBody"
+        if (POSITIVE.matcher(e.attributes().toString()).find())
+            weight += 35;
 
         if (UNLIKELY.matcher(e.className()).find())
             weight -= 20;
