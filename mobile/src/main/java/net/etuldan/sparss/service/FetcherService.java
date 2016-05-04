@@ -11,7 +11,6 @@
  * <p/>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * <p/>
  * You should have received a copy of the GNU General Public License
@@ -321,8 +320,8 @@ public class FetcherService extends IntentService {
                         String text = entryCursor.getString(abstractHtmlPos);
                         if (!TextUtils.isEmpty(text)) {
                             text = Html.fromHtml(text).toString();
-                            if (text.length() > 60) {
-                                contentIndicator = text.substring(20, 40);
+                            if (text.length() >= 100) {
+                                contentIndicator = text.substring(0, 100);
                             }
                             contentIndicator = contentIndicator.replaceAll("[\\t\\n\\r]+"," ");
                         }
