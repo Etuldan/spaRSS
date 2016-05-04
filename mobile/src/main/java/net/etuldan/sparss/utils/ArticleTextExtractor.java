@@ -66,21 +66,25 @@ public class ArticleTextExtractor {
         int maxWeight = 0;
         Element bestMatchElement = null;
 
-        //first largest node which contains content but not title. that is the content we want.
-        for (Element entry : nodes) {
-            if(entry.text().contains(contentIndicator)) {
-                if(!entry.text().contains(titleIndicator)) {
-                    if(maxWeight < entry.text().length()) {
-                        maxWeight = entry.text().length();
-                        bestMatchElement = entry;
+        if(contentIndicator != null) {
+            //first largest node which contains content but not title. that is the content we want.
+            for (Element entry : nodes) {
+                if(entry.text().contains(contentIndicator)) {
+                    if(!entry.text().contains(titleIndicator)) {
+                        if(maxWeight < entry.text().length()) {
+                            maxWeight = entry.text().length();
+                            bestMatchElement = entry;
+                        }
                     }
                 }
             }
         }
 
         if(bestMatchElement == null) {
-            Log.d(TAG, "extractContent: conventionalMatching for " + titleIndicator + ", withContentFilter==true");
-            bestMatchElement = conventionalMatching(nodes, contentIndicator, true);
+            if(contentIndicator != null) {
+                Log.d(TAG, "extractContent: conventionalMatching for " + titleIndicator + ", withContentFilter==true");
+                bestMatchElement = conventionalMatching(nodes, contentIndicator, true);
+            }
             if (bestMatchElement == null) {
                 Log.d(TAG, "extractContent: conventionalMatching for " + titleIndicator + ", withContentFilter==false");
                 bestMatchElement = conventionalMatching(nodes, contentIndicator, false);
