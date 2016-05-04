@@ -324,11 +324,13 @@ public class FetcherService extends IntentService {
                             if (text.length() > 60) {
                                 contentIndicator = text.substring(20, 40);
                             }
+                            text = text.replaceAll("[\\t\\n\\r]+"," ");
                         }
                         String titleIndicator = null;
                         String title = entryCursor.getString(titlePos);
                         if (!TextUtils.isEmpty(title)) {
                             titleIndicator = Html.fromHtml(title).toString();
+                            titleIndicator = titleIndicator.replaceAll("[\\t\\n\\r]+"," ");
                         }
 
                         connection = NetworkUtils.setupConnection(link,cookieName, cookieValue,httpAuthLoginValue, httpAuthPassValue);
