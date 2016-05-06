@@ -69,10 +69,12 @@ public class ArticleTextExtractor {
         if(contentIndicator != null) {
             //first largest node which contains content but not title. that is the content we want.
             for (Element entry : nodes) {
-                if(entry.text().contains(contentIndicator)) {
-                    if(!entry.text().contains(titleIndicator)) {
-                        if(maxWeight < entry.text().length()) {
-                            maxWeight = entry.text().length();
+                String text = entry.text();
+                text = text.substring(0, Math.min(200, text.length())).replaceAll("[\\s\\u00A0]+"," "); //normalized beginning of text
+                if(text.contains(contentIndicator)) {
+                    if(!text.contains(titleIndicator)) {
+                        if(maxWeight < text.length()) {
+                            maxWeight = text.length();
                             bestMatchElement = entry;
                         }
                     }
@@ -130,8 +132,10 @@ public class ArticleTextExtractor {
         int maxWeight = 0;
         Element bestMatchElement = null;
         for (Element entry : nodes) {
+            String text = entry.text();
+            text = text.substring(0, Math.min(200, text.length())).replaceAll("[\\s\\u00A0]+"," "); //normalized beginning of text
             //only consider entries which contain the contentIndicator if withContentFilter 
-            if (withContentFilter && !entry.text().contains(contentIndicator)) {
+            if (withContentFilter && !text.contains(contentIndicator)) {
                 continue;
             }
             int currentWeight = getWeight(entry, contentIndicator);
