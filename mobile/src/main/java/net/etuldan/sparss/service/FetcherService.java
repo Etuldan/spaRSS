@@ -322,14 +322,14 @@ public class FetcherService extends IntentService {
                             text = Html.fromHtml(text).toString();
                             if (text.length() >= 100) {
                                 contentIndicator = text.substring(0, 100);
-                                contentIndicator = contentIndicator.replaceAll("[\\t\\n\\r]+"," ");
+                                contentIndicator = contentIndicator.replaceAll("[\\s\\u00A0]+"," "); //normalize, all whitespaces (incl char(160)) -> single space
                             }
                         }
                         String titleIndicator = null;
                         String title = entryCursor.getString(titlePos);
                         if (!TextUtils.isEmpty(title)) {
                             titleIndicator = Html.fromHtml(title).toString();
-                            titleIndicator = titleIndicator.replaceAll("[\\t\\n\\r]+"," ");
+                            titleIndicator = titleIndicator.replaceAll("[\\s\\u00A0]+"," "); //normalize, all whitespaces (incl char(160)) -> single space
                         }
 
                         connection = NetworkUtils.setupConnection(link,cookieName, cookieValue,httpAuthLoginValue, httpAuthPassValue);
