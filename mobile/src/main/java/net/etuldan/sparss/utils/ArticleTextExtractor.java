@@ -73,8 +73,8 @@ public class ArticleTextExtractor {
                 text = text.substring(0, Math.min(200, text.length())).replaceAll("[\\s\\u00A0]+"," "); //normalized beginning of text
                 if(text.contains(contentIndicator)) {
                     if(!text.contains(titleIndicator)) {
-                        if(maxWeight < text.length()) {
-                            maxWeight = text.length();
+                        if(maxWeight < entry.text().length()) { //use whole content length here!
+                            maxWeight = entry.text().length();
                             bestMatchElement = entry;
                         }
                     }
