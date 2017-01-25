@@ -1,5 +1,7 @@
 package net.etuldan.sparss.utils;
 
+import android.util.Log;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -19,9 +21,10 @@ import java.util.regex.Pattern;
  * @author Peter Karich
  */
 public class ArticleTextExtractor {
+    private static final String TAG = "ArticleTextExtractor";
 
     // Interesting nodes
-    private static final Pattern NODES = Pattern.compile("p|div|td|h1|h2|article|section");
+    private static final Pattern NODES = Pattern.compile("p|div|td|h1|h2|article|section|main"); //"main" is used by Joomla CMS
 
     // Unlikely candidates
     private static final Pattern UNLIKELY = Pattern.compile("com(bx|ment|munity)|dis(qus|cuss)|e(xtra|[-]?mail)|foot|"
@@ -47,11 +50,11 @@ public class ArticleTextExtractor {
      * @param contentIndicator a text which should be included into the extracted content, or null
      * @return extracted article, all HTML tags stripped
      */
-    public static String extractContent(InputStream input, String contentIndicator) throws Exception {
-        return extractContent(Jsoup.parse(input, null, ""), contentIndicator);
+    public static String extractContent(InputStream input, String contentIndicator, String titleIndicator) throws Exception {
+        return extractContent(Jsoup.parse(input, null, ""), contentIndicator, titleIndicator);
     }
 
-    public static String extractContent(Document doc, String contentIndicator) {
+    public static String extractContent(Document doc, String contentIndicator, String titleIndicator) {
         if (doc == null)
             throw new NullPointerException("missing document");
 
@@ -63,7 +66,78 @@ public class ArticleTextExtractor {
         int maxWeight = 0;
         Element bestMatchElement = null;
 
+        if(contentIndicator != null) {
+            //first largest node which contains content but not title. that is the content we want.
+            for (Element entry : nodes) {
+                String text = entry.text();
+                text = text.substring(0, Math.min(200, text.length())).replaceAll("[\\s\\u00A0]+"," "); //normalized beginning of text
+                if(text.contains(contentIndicator)) {
+                    if(!text.contains(titleIndicator)) {
+                        if(maxWeight < entry.text().length()) { //use whole content length here!
+                            maxWeight = entry.text().length();
+                            bestMatchElement = entry;
+                        }
+                    }
+                }
+            }
+        }
+
+        if(bestMatchElement == null) {
+            if(contentIndicator != null) {
+                Log.d(TAG, "extractContent: conventionalMatching for " + titleIndicator + ", withContentFilter==true");
+                bestMatchElement = conventionalMatching(nodes, contentIndicator, true);
+            }
+            if (bestMatchElement == null) {
+                Log.d(TAG, "extractContent: conventionalMatching for " + titleIndicator + ", withContentFilter==false");
+                bestMatchElement = conventionalMatching(nodes, contentIndicator, false);
+            }
+        }
+        
+        //check siblings for images and add them if any available
+        Element previousSibling = bestMatchElement.previousElementSibling();
+        while(previousSibling != null) {
+            if (previousSibling.select("img").size() != 0) {
+                bestMatchElement.prependChild(previousSibling);
+                previousSibling = bestMatchElement.previousElementSibling();
+            } else {
+                previousSibling = previousSibling.previousElementSibling();
+            }
+        }
+        Element nextSibling = bestMatchElement.nextElementSibling();
+        while(nextSibling != null) {
+            if (nextSibling.select("img").size() != 0) {
+                bestMatchElement.appendChild(nextSibling);
+                nextSibling = bestMatchElement.nextElementSibling();
+            } else {
+                nextSibling = nextSibling.nextElementSibling();
+            }
+        }
+
+        if (bestMatchElement != null) {
+            return bestMatchElement.toString();
+        }
+
+        Log.e(TAG, "extractContent failed. Returning document body.");
+        return doc.select("body").first().toString();
+    }
+
+    /**
+     * Conventional matching algorithm. 
+     * @param nodes All HTML elements to be considered.
+     * @param contentIndicator Only required if withContentFilter==true
+     * @param withContentFilter If true only nodes containing contentIndicator are considered
+     * @return Best matching node or null
+     */
+    private static Element conventionalMatching(Collection<Element> nodes, String contentIndicator, boolean withContentFilter) {
+        int maxWeight = 0;
+        Element bestMatchElement = null;
         for (Element entry : nodes) {
+            String text = entry.text();
+            text = text.substring(0, Math.min(200, text.length())).replaceAll("[\\s\\u00A0]+"," "); //normalized beginning of text
+            //only consider entries which contain the contentIndicator if withContentFilter 
+            if (withContentFilter && !text.contains(contentIndicator)) {
+                continue;
+            }
             int currentWeight = getWeight(entry, contentIndicator);
             if (currentWeight > maxWeight) {
                 maxWeight = currentWeight;
@@ -74,12 +148,7 @@ public class ArticleTextExtractor {
                 }
             }
         }
-
-        if (bestMatchElement != null) {
-            return bestMatchElement.toString();
-        }
-
-        return null;
+        return bestMatchElement;
     }
 
     /**
@@ -116,15 +185,21 @@ public class ArticleTextExtractor {
         Element caption = null;
         List<Element> pEls = new ArrayList<>(5);
         for (Element child : rootEl.children()) {
+            //if child contains only (!) a single child, get that sub-child instead (recursively!)
+            while(child.children().size() == 1 && child.text().length() == 0) {
+                child = child.child(0);
+            }
             String text = child.text();
             int textLength = text.length();
             if (textLength < 20) {
                 continue;
             }
 
-            if (contentIndicator != null && text.contains(contentIndicator)) {
-                weight += 100; // We certainly found the item
-            }
+            //this is not reliable. there are many tags (tree hierarchy) which contain contentIndicator,
+            //at this point we cannot be certain that this is the tag we actually want.
+            //if (contentIndicator != null && text.contains(contentIndicator)) {
+            //    weight += 100; // We certainly found the item
+            //}
 
             String ownText = child.ownText();
             int ownTextLength = ownText.length();
@@ -171,6 +246,10 @@ public class ArticleTextExtractor {
 
         if (POSITIVE.matcher(e.id()).find())
             weight += 40;
+            
+        //also allow custom HTML attributes, e.g. like Joomla uses: itemprop="articleBody"
+        if (POSITIVE.matcher(e.attributes().toString()).find())
+            weight += 35;
 
         if (UNLIKELY.matcher(e.className()).find())
             weight -= 20;

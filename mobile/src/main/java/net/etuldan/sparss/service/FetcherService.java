@@ -11,7 +11,6 @@
  * <p/>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  * <p/>
  * You should have received a copy of the GNU General Public License
@@ -297,6 +296,7 @@ public class FetcherService extends IntentService {
                 if (entryCursor.isNull(entryCursor.getColumnIndex(EntryColumns.MOBILIZED_HTML))) { // If we didn't already mobilized it
                     int linkPos = entryCursor.getColumnIndex(EntryColumns.LINK);
                     int abstractHtmlPos = entryCursor.getColumnIndex(EntryColumns.ABSTRACT);
+                    int titlePos = entryCursor.getColumnIndex(EntryColumns.TITLE);
                     int feedIdPos = entryCursor.getColumnIndex(EntryColumns.FEED_ID);
                     HttpURLConnection connection = null;
 
@@ -320,14 +320,21 @@ public class FetcherService extends IntentService {
                         String text = entryCursor.getString(abstractHtmlPos);
                         if (!TextUtils.isEmpty(text)) {
                             text = Html.fromHtml(text).toString();
-                            if (text.length() > 60) {
-                                contentIndicator = text.substring(20, 40);
+                            if (text.length() >= 100) {
+                                contentIndicator = text.substring(0, 100);
+                                contentIndicator = contentIndicator.replaceAll("[\\s\\u00A0]+"," "); //normalize, all whitespaces (incl char(160)) -> single space
                             }
+                        }
+                        String titleIndicator = null;
+                        String title = entryCursor.getString(titlePos);
+                        if (!TextUtils.isEmpty(title)) {
+                            titleIndicator = Html.fromHtml(title).toString();
+                            titleIndicator = titleIndicator.replaceAll("[\\s\\u00A0]+"," "); //normalize, all whitespaces (incl char(160)) -> single space
                         }
 
                         connection = NetworkUtils.setupConnection(link,cookieName, cookieValue,httpAuthLoginValue, httpAuthPassValue);
 
-                        String mobilizedHtml = ArticleTextExtractor.extractContent(connection.getInputStream(), contentIndicator);
+                        String mobilizedHtml = ArticleTextExtractor.extractContent(connection.getInputStream(), contentIndicator, titleIndicator);
 
                         if (mobilizedHtml != null) {
                             mobilizedHtml = HtmlUtils.improveHtmlContent(mobilizedHtml, NetworkUtils.getBaseUrl(link));
