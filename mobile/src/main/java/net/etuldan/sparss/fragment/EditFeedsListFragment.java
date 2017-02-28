@@ -81,6 +81,7 @@ import net.etuldan.sparss.activity.AddGoogleNewsActivity;
 import net.etuldan.sparss.adapter.FeedsCursorAdapter;
 import net.etuldan.sparss.parser.OPML;
 import net.etuldan.sparss.provider.FeedData.FeedColumns;
+import net.etuldan.sparss.utils.HTMLDigest;
 import net.etuldan.sparss.view.DragNDropExpandableListView;
 import net.etuldan.sparss.view.DragNDropListener;
 

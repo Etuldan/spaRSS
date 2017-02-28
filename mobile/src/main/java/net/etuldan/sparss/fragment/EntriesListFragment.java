@@ -20,18 +20,24 @@
 
 package net.etuldan.sparss.fragment;
 
+import android.Manifest;
 import android.app.LoaderManager;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.SearchView;
 import android.view.GestureDetector;
@@ -53,6 +59,7 @@ import android.widget.Toast;
 import com.melnykov.fab.FloatingActionButton;
 
 import net.etuldan.sparss.Constants;
+import net.etuldan.sparss.MainApplication;
 import net.etuldan.sparss.R;
 import net.etuldan.sparss.activity.HomeActivity;
 import net.etuldan.sparss.adapter.EntriesCursorAdapter;
@@ -60,6 +67,7 @@ import net.etuldan.sparss.provider.FeedData;
 import net.etuldan.sparss.provider.FeedData.EntryColumns;
 import net.etuldan.sparss.provider.FeedDataContentProvider;
 import net.etuldan.sparss.service.FetcherService;
+import net.etuldan.sparss.utils.HTMLDigest;
 import net.etuldan.sparss.utils.PrefUtils;
 import net.etuldan.sparss.utils.UiUtils;
 
@@ -76,6 +84,8 @@ public class EntriesListFragment extends SwipeRefreshListFragment {
 
     private static final int ENTRIES_LOADER_ID = 1;
     private static final int NEW_ENTRIES_NUMBER_LOADER_ID = 2;
+
+    private static final int PERMISSIONS_REQUEST_EXPORT_STARRED = 1;
 
     private Uri mUri;
     private boolean mShowFeedInfo = false;
@@ -310,6 +320,8 @@ public class EntriesListFragment extends SwipeRefreshListFragment {
             menu.findItem(R.id.menu_refresh).setVisible(false);
         } else {
             menu.findItem(R.id.menu_share_starred).setVisible(false);
+            menu.findItem(R.id.menu_export_starred).setVisible(false);
+            menu.findItem(R.id.menu_reset_starred).setVisible(false);
         }
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -335,6 +347,51 @@ public class EntriesListFragment extends SwipeRefreshListFragment {
                         ));
                     }
                 }
+                return true;
+            }
+            case R.id.menu_export_starred: {
+                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(getActivity());
+                        builder.setMessage(R.string.storage_request_explanation).setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogInterface, int id) {
+                                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST_EXPORT_STARRED);
+                            }
+                        }).setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogInterface, int id) {
+                            }
+                        });
+                        builder.show();
+                    } else {
+                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST_EXPORT_STARRED);
+                    }
+                } else {
+                    exportStarred();
+                }
+                return true;
+            }
+            case R.id.menu_reset_starred: {
+                // TODO MAYBE: ask for deletion of entries as well?
+                new android.support.v7.app.AlertDialog.Builder(getActivity())
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle(R.string.context_menu_reset_starred)
+                        .setMessage(R.string.context_menu_reset_starred_confirmation)
+                        .setPositiveButton(R.string.confirm_positive, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                new Thread() {
+                                    @Override
+                                    public void run() {
+                                        ContentResolver cr = MainApplication.getContext().getContentResolver();
+                                        String where = EntryColumns.WHERE_FAVORITE;
+                                        cr.update(mUri, FeedData.getUnstarredContentValues(), where, null);
+                                    }
+                                }.start();
+                            }
+
+                        })
+                        .setNegativeButton(R.string.confirm_negative, null)
+                        .show();
                 return true;
             }
             case R.id.menu_refresh: {
@@ -394,6 +451,39 @@ public class EntriesListFragment extends SwipeRefreshListFragment {
                 FetcherService.addEntriesToMobilize(entries);
                 getActivity().startService(new Intent(getActivity(), FetcherService.class).setAction(FetcherService.ACTION_MOBILIZE_FEEDS));
             }
+        }
+    }
+
+    private void exportStarred()
+    {
+        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        final String filename = Environment.getExternalStorageDirectory().toString() + "/spaRSS_starred" +
+                                "_" + System.currentTimeMillis()+".html";
+                        HTMLDigest.exportStarred(filename);
+                        // display success message after export
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getActivity(), String.format(getString(R.string.message_exported_to), filename),
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    } catch (Exception e) {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getActivity(), R.string.error_feed_export, Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                }
+            }).start();
+        } else {
+            Toast.makeText(getActivity(), R.string.error_external_storage_not_available, Toast.LENGTH_LONG).show();
         }
     }
 

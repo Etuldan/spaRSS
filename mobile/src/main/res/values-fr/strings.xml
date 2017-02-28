@@ -237,8 +237,13 @@
     <string name="passwordhttpAuth">Mot de passe</string>
 <string name="settings_show_new_entries_description">Si désactivé, un appui sur le bouton Afficher nouveaux articles sera requis pour les afficher</string>
     <string name="filter_help">Aide à propos des filtres</string>
-    <string name="storage_request_explanation">Pour pouvoir importer ou exporter les flux depuis ou vers un fichier, vous devez autoriser l\'application à accéder au stockage interne.</string>
+    <string name="storage_request_explanation">Pour pouvoir importer ou exporter depuis ou vers un fichier, vous devez autoriser l\'application à accéder au stockage interne.</string>
     <string name="feed_no_summary">&lt; Aucun résumé disponible. &gt;</string>
     <string name="google_news_custom_topic">Entrer un thème personnalisé</string>
+    <string name="context_menu_export_starred">Exporter vers HTML</string>
+    <string name="context_menu_reset_starred">Réinitialiser les favoris</string>
+    <string name="context_menu_reset_starred_confirmation">Éliminer tous les marques?</string>
+    <string name="confirm_negative">Non</string>
+    <string name="confirm_positive">Oui</string>
 
-    </resources>
+</resources>

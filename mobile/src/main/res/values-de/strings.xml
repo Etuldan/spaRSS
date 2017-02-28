@@ -60,7 +60,7 @@
     <string name="error_feed_process">Der Feed kann nicht bearbeitet werden.</string>
     <string name="error_feed_url_exists">Diese Adresse existiert schon.</string>
     <string name="error_feed_import">Die ausgewählte Datei konnte nicht importiert werden.</string>
-    <string name="error_feed_export">Der Export ist fehlgeschlagen. Stelle sicher, dass du eine beschreibbare SD-Karte verfügbar ist.</string>
+    <string name="error_feed_export">Der Export ist fehlgeschlagen. Stelle sicher, dass eine beschreibbare SD-Karte verfügbar ist.</string>
     <string name="error_external_storage_not_available">Der externe Speicher (z.B. SD-Karte) ist nicht verfügbar.</string>
     <string name="feed_url">URL</string>
     <string name="optional">(optional)</string>
@@ -114,7 +114,7 @@
     <string name="favorites">Favorisiert</string>
     <string name="context_menu_hide_read">Gelesene Einträge verstecken</string>
     <string name="context_menu_show_read">Gelesene Einträge anzeigen</string>
-    <string name="context_menu_share_starred">Favorisierte Einträge teilen</string>
+    <string name="context_menu_share_starred">Favoriten teilen</string>
     <string name="menu_star">Favorisieren</string>
     <string name="menu_unstar">Entfavorisieren</string>
     <string name="menu_share">Teilen</string>
@@ -248,6 +248,11 @@
     <string name="filter_help">Filter Hilfe</string>
     <string name="settings_show_new_entries_description">Wenn deaktiviert, ist das Antippen des Buttons Neue Einträge erforderlich, um neue Einträge zu sehen</string>
     <string name="google_news_custom_topic">Eigenes Thema</string>
-<string name="storage_request_explanation">Um Feeds aus einer Datei importieren oder in eine Datei exportieren zu können, benötigt die App Zugriffsrechte auf die SD-Karte.</string>
+<string name="storage_request_explanation">Um aus einer Datei importieren oder in eine Datei exportieren zu können, benötigt die App Zugriffsrechte auf die SD-Karte.</string>
     <string name="feed_no_summary">&lt;Keine Zusammenfassung verfügbar&gt;</string>
-    </resources>
+    <string name="context_menu_export_starred">In HTML exportieren</string>
+    <string name="context_menu_reset_starred">Favoriten zurücksetzen</string>
+    <string name="context_menu_reset_starred_confirmation">Alle Markierungen entfernen?</string>
+    <string name="confirm_negative">Nein</string>
+    <string name="confirm_positive">Ja</string>
+</resources>
