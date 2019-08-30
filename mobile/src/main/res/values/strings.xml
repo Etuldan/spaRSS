@@ -27,7 +27,7 @@
     <!-- GENERAL -->
     <string name="app_name">spaRSS</string>
     <string name="about_spaRSS">About spaRSS</string>
-    <string name="welcome_title">Welcome to spaRSS. Would you like to add one feed?</string>
+    <string name="welcome_title">Welcome to spaRSS. Would you like to add a feed?</string>
     <string name="never">never</string>
     <string name="update">Update</string>
     <string name="colon">:\u00A0</string>
@@ -57,7 +57,7 @@
     <string name="menu_add_group">Add group</string>
     <string name="menu_import">Import from OPML</string>
     <string name="menu_export">Export to OPML</string>
-    <string name="storage_request_explanation">To be able to import or export the feeds from or to a file, you must allow the application to access to the storage memory.</string>
+    <string name="storage_request_explanation">To be able to import or export the feeds from or to a file, you must grant the app access to storage.</string>
     <string name="error_feed_error">The feed website is unreachable.</string>
     <string name="error_feed_process">The feed can not be processed.</string>
     <string name="error_feed_url_exists">The address already exists.</string>
@@ -86,8 +86,8 @@
     <string name="filter_is_regex">is a regular expression</string>
     <string name="filter_apply_to_title">Apply to title</string>
     <string name="filter_apply_to_content">Apply to content</string>
-    <string name="accept">ACCEPT</string>
-    <string name="reject">REJECT</string>
+    <string name="accept">Accept</string>
+    <string name="reject">Reject</string>
     <string name="feed_search">Feed search</string>
     <string name="select_file">Select file (SD-root)</string>
     <string name="question_delete_feed">Do you really want to delete this feed?</string>
@@ -128,18 +128,18 @@
     <string name="menu_mark_as_unread">Mark as unread</string>
     <string name="menu_open_in_browser">Open in browser</string>
     <string name="menu_switch_full_original">Show full content</string>
-    <string name="share_favorites_title">spaRSS: starred entries</string>
+    <string name="share_favorites_title">spaRSS: Starred entries</string>
     <string name="copied_clipboard">Link copied</string>
     <string name="get_full_text">Retrieve the full text</string>
     <string name="original_text">Show basic text</string>
     <string name="see_enclosure">See enclosure</string>
     <string name="see_link">See in browser</string>
-    <string name="cant_open_link">No application found for this link</string>
+    <string name="cant_open_link">No app installed to open this link</string>
     <string name="open_enclosure">Open enclosure</string>
     <string name="file">File</string>
     <string name="download_and_save">Download and save</string>
     <string name="open_link">Open link</string>
-    <string name="tip_sentence">Tip: slide left to mark as read and slide right to mark as favorite</string>
+    <string name="tip_sentence">Tip: Sliding left marks as read, rightwards marks as favorite.</string>
 
     <!-- WIDGET -->
     <string name="red">Red</string>
@@ -158,28 +158,28 @@
     <string name="settings_notifications_ringtone">Ringtone</string>
     <string name="settings_notifications_ringtone_none">None</string>
     <string name="settings_notifications_vibrate">Vibrate</string>
-    <string name="settings_notifications_vibrate_description">Enable the vibration on new entries</string>
+    <string name="settings_notifications_vibrate_description">Vibration for new entries</string>
     <string name="settings_notifications_light">Light</string>
-    <string name="settings_notifications_light_description">Enable notification light on new entries</string>
+    <string name="settings_notifications_light_description">Notification light for new entries</string>
     <string name="settings_category_content_presentation">Content presentation</string>
     <string name="settings_light_theme">Light theme</string>
     <string name="settings_light_theme_description">Use the light theme</string>
     <string name="settings_left_panel">Navigation Drawer</string>
-    <string name="settings_left_panel_description">Display the Navigation Drawer at startup of the application</string>
-    <string name="settings_keep_time">Time that the entries will be kept</string>
+    <string name="settings_left_panel_description">Open the Navigation Drawer when the app is started</string>
+    <string name="settings_keep_time">Duration to store entries</string>
     <string name="settings_display_images">Display images</string>
     <string name="settings_display_images_description">Display images in entries</string>
     <string name="settings_preload_image_mode">Preload images</string>
     <string name="settings_font_size">Text size</string>
     <string name="settings_font_serif">Use Serif Font</string>
-    <string name="settings_font_serif_description">Use Serif Font instead of Sans-Serif in articles</string>
-    <string name="settings_display_oldest_first">Entries order</string>
+    <string name="settings_font_serif_description">Use serif font instead of sans-serif in articles</string>
+    <string name="settings_display_oldest_first">Order of entries</string>
     <string name="settings_display_oldest_first_description">Display oldest entries first</string>
     <string name="settings_display_entries_fullscreen">Auto-fullscreen entries</string>
     <string name="settings_display_entries_fullscreen_description">Automatically display entries in fullscreen</string>
-    <string name="settings_refresh_on_open">Refresh feeds on open</string>
-    <string name="settings_refresh_on_open_description">Refreshes all feeds after opening the application</string>
-    <string name="settings_refresh_wifi_only">Refresh only over Wi-Fi</string>
+    <string name="settings_refresh_on_open">Refresh feeds upon opening</string>
+    <string name="settings_refresh_on_open_description">Refreshes all feeds after opening the app</string>
+    <string name="settings_refresh_wifi_only">Only refresh on Wi-Fi</string>
     <string name="settings_refresh_wifi_only_description">Automatic refresh will only be done if Wi-Fi connection is available</string>
     <string name="settings_visible_feeds">Visible feeds</string>
     <string name="settings_widget_background">Background</string>
@@ -196,7 +196,7 @@
     <string name="settings_mark_as_read">Display button "Mark all as read"</string>
     <string name="settings_mark_as_read_description">Show / Hide the button</string>
     <string name="settings_show_new_entries">Automatically show new entries</string>
-    <string name="settings_show_new_entries_description">If disabled, a tap on the "Show new entries" button will be required to show new entries</string>
+    <string name="settings_show_new_entries_description">If disabled, a tap on the \"Show new entries\" button will be required to show new entries</string>
     <plurals name="number_of_new_entries">
         <item quantity="one">One new entry</item>
         <item quantity="other">%d new entries</item>
