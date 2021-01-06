@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
  Copyright (c) 2015-2016 Arnaud Renaud-Goud
  Copyright (c) 2012-2015 Frederic Julian
@@ -21,9 +21,7 @@
  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
--->
-<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
-
+--><resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
     <!-- GENERAL -->
     <string name="app_name">спаРСС</string>
     <string name="about_spaRSS">О спаРССу</string>
@@ -42,7 +40,6 @@
     <string name="drawer_open">Отвори фиоку навигације</string>
     <string name="drawer_close">Затвори фиоку навигације</string>
     <string name="back_again_to_quit">Притисните опет за излаз</string>
-
     <!-- FEEDS -->
     <string name="feeds">Доводи</string>
     <string name="menu_add_feed">Додај довод</string>
@@ -83,7 +80,7 @@
     <string name="feed_search">Претрага довода</string>
     <string name="select_file">Изаберите фајл (корена фасцикла)</string>
     <string name="question_delete_feed">Желите ли заиста да обришете овај довод?</string>
-    <string name="question_delete_group">"Желите ли заиста да обришете ову групу и све њене доводе? "</string>
+    <string name="question_delete_group">Желите ли заиста да обришете ову групу и све њене доводе\?</string>
     <string name="question_delete_filter">Желите ли заиста да обришете овај филтер?</string>
     <string name="add_group_title">Одредите име групе</string>
     <string name="edit_group_title">Уредите име групе</string>
@@ -103,7 +100,6 @@
     <string name="google_news_sports">Спорт</string>
     <string name="google_news_science">Наука</string>
     <string name="google_news_health">Здравље</string>
-
     <!-- ENTRIES -->
     <string name="all">Уноси</string>
     <string name="no_entries">Нема уноса</string>
@@ -129,13 +125,11 @@
     <string name="download_and_save">Преузми и сачувај</string>
     <string name="open_link">Отвори везу</string>
     <string name="tip_sentence">Савет: клизајте лево да означите прочитаним и десно да ставите у омиљене</string>
-
     <!-- WIDGET -->
     <string name="red">Црвена</string>
     <string name="green">Зелена</string>
     <string name="blue">Плава</string>
     <string name="transparency">Прозирност</string>
-
     <!-- SETTINGS -->
     <string name="settings_category_refresh">Аутоматско освежавање</string>
     <string name="settings_refresh_enabled">Укључи</string>
@@ -187,7 +181,6 @@
         <item quantity="few">%d нових уноса</item>
         <item quantity="other">%d нових уноса</item>
     </plurals>
-
     <string-array name="settings_intervals">
         <item>1 минута</item>
         <item>5 минута</item>
@@ -236,10 +229,8 @@
         <item>Само преко бежичног</item>
         <item>Увек</item>
     </string-array>
-
-<string name="menu_show_new_entries">Прикажи нове уносе</string>
+    <string name="menu_show_new_entries">Прикажи нове уносе</string>
     <string name="no_new_entries">Нема нових уноса за приказ</string>
-
     <string name="menu_open_in_browser">Отвори у прегледачу</string>
     <string name="menu_switch_full_original">Прикажи цео садржај</string>
     <string name="settings_font_serif">Користи серифни фонт</string>
@@ -251,7 +242,6 @@
     <string name="passwordhttpAuth">Лозинка</string>
     <string name="filter_help">Помоћ за филтер</string>
     <string name="google_news_custom_topic">Прилагођена тема</string>
-
     <string name="feed_no_summary">&lt; Нема резимеа. &gt;</string>
     <string name="storage_request_explanation">Да бисте могли да увозите/извозите доводе из/у фајл, морате да одобрите приступ складишту.</string>
-    </resources>
+</resources>
