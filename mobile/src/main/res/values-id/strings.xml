@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
     <string name="app_name">spaRSS</string>
     <string name="about_spaRSS">Tentang spaRSS</string>
@@ -19,7 +19,6 @@
     <string name="drawer_close">Tutup navigasi panel samping</string>
     <string name="back_again_to_quit">Tekan kembali sekali lagi untuk keluar</string>
     <string name="no_new_entries">Tidak ada entri baru yg ditampilkan</string>
-
     <string name="feeds">Feeds</string>
     <string name="menu_add_feed">Tambahkan umpan</string>
     <string name="no_feeds">Tidak ada umpan</string>
@@ -63,7 +62,7 @@
     <string name="feed_search">Cari umpan</string>
     <string name="select_file">Pilih berkas (SD-root)</string>
     <string name="question_delete_feed">Kamu ingin benar-benar menghapus umpan ini?</string>
-    <string name="question_delete_group">"Kamu ingin benar-benar menghapus grup ini dan semua umpan yang ada didalamnya? "</string>
+    <string name="question_delete_group">Anda yakin ingin menghapus grup ini dan semua feednya\?</string>
     <string name="question_delete_filter">Kamu ingin benar-benar menghapus penyaring ini?</string>
     <string name="add_group_title">Pilih nama grup</string>
     <string name="edit_group_title">Sunting nama grup</string>
@@ -83,7 +82,6 @@
     <string name="google_news_sports">Olahraga</string>
     <string name="google_news_science">Sains</string>
     <string name="google_news_health">Kesehatan</string>
-
     <string name="all">Entri</string>
     <string name="no_entries">Tidak ada entri</string>
     <string name="favorites">Berbintang</string>
@@ -109,13 +107,11 @@
     <string name="file">Berkas</string>
     <string name="download_and_save">Unduh dan simpan</string>
     <string name="open_link">Buka tautan</string>
-    <string name="tip_sentence">Tip: geser kekiri untuk menandakan telah terbaca dan kekanan untuk menandakan sebagai favorit</string>
-
+    <string name="tip_sentence">Kiat: ← untuk menandai sebagai sudah dibaca, → ke favorit</string>
     <string name="red">Merah</string>
     <string name="green">Hijau</string>
     <string name="blue">Biru</string>
     <string name="transparency">Transparansi</string>
-
     <string name="settings_category_refresh">Segarkan otomatis</string>
     <string name="settings_refresh_enabled">Aktifkan segarkan otomatis</string>
     <string name="settings_refresh_enabled_description">Aktifkan penyegaran otomatis umpan</string>
@@ -166,12 +162,10 @@
     <string name="settings_show_new_entries">Secara otomatis menampilkan entri baru</string>
     <string name="settings_show_new_entries_description">Jika non-aktif, sentuk ditombol Tampilkan entri baru dibutuhkan untuk menampilkan entri baru</string>
     <plurals name="number_of_new_entries">
-	<item quantity="one">Satu entri baru</item>
-	<item quantity="other"/>
-</plurals>
-
+        <item quantity="one">Satu entri baru</item>
+        <item quantity="other"/>
+    </plurals>
     <string name="storage_request_explanation">Agar bisa mengimpor atau mengekspor umpan dari atau ke berkas, anda harus mengijinkan aplikasi mengakses media penyimpanan.</string>
     <string name="google_news_custom_topic">Masukkan topik khusus</string>
-
     <string name="feed_no_summary">&lt; Ringkasan tidak tersedia. &gt;</string>
-    </resources>
+</resources>
