@@ -162,8 +162,7 @@
     <string name="settings_show_new_entries">Secara otomatis menampilkan entri baru</string>
     <string name="settings_show_new_entries_description">Jika non-aktif, sentuk ditombol Tampilkan entri baru dibutuhkan untuk menampilkan entri baru</string>
     <plurals name="number_of_new_entries">
-        <item quantity="one">Satu entri baru</item>
-        <item quantity="other"/>
+        <item quantity="other">%d entri baru</item>
     </plurals>
     <string name="storage_request_explanation">Agar bisa mengimpor atau mengekspor umpan dari atau ke berkas, anda harus mengijinkan aplikasi mengakses media penyimpanan.</string>
     <string name="google_news_custom_topic">Masukkan topik khusus</string>
