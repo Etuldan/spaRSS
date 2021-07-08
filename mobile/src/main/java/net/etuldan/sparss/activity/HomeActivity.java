@@ -105,8 +105,6 @@ public class HomeActivity extends BaseActivity implements LoaderManager.LoaderCa
     private BitmapDrawable mIcon;
     private int mCurrentDrawerPos;
 
-    private boolean mCanQuit = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         UiUtils.setPreferenceTheme(this);
@@ -233,19 +231,7 @@ public class HomeActivity extends BaseActivity implements LoaderManager.LoaderCa
             }
         }
 
-        if (mCanQuit) {
-            super.finish();
-            return;
-        }
-
-        Toast.makeText(this, R.string.back_again_to_quit, Toast.LENGTH_SHORT).show();
-        mCanQuit = true;
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mCanQuit = false;
-            }
-        }, 3000);
+        super.finish();
     }
 
     @Override
